@@ -1,17 +1,15 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { 
-  ChevronLeft, 
-  MapPin, 
-  CreditCard, 
-  Truck, 
+import {
+  ChevronLeft,
+  MapPin,
+  CreditCard,
+  Truck,
   Building,
   CheckCircle2,
-  Clock
+  Clock,
 } from 'lucide-react';
-import { MEDICINES } from '../constants';
-import { formatCurrency } from '../lib/utils';
 
 export default function Checkout() {
   const navigate = useNavigate();
@@ -38,7 +36,8 @@ export default function Checkout() {
         </motion.div>
         <h1 className="text-3xl font-display font-bold mb-4">Commande Confirmée !</h1>
         <p className="text-slate-500 leading-relaxed italic mb-10 font-normal">
-          Votre commande a été transmise à la Pharmacie du Centre. Un livreur sera assigné prochainement.
+          Votre commande a été transmise à la Pharmacie du Centre. Un livreur sera assigné
+          prochainement.
         </p>
         <div className="w-full bg-slate-50 rounded-3xl p-6 border border-slate-100 flex items-center justify-between">
           <div className="flex items-center space-x-4">
@@ -50,10 +49,7 @@ export default function Checkout() {
               <p className="text-xs text-slate-400">Arrivée dans 25-35 mins</p>
             </div>
           </div>
-          <motion.div 
-            animate={{ x: [0, 5, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5 }}
-          >
+          <motion.div animate={{ x: [0, 5, 0] }} transition={{ repeat: Infinity, duration: 1.5 }}>
             <Truck className="text-primary" size={24} />
           </motion.div>
         </div>
@@ -74,13 +70,25 @@ export default function Checkout() {
         {/* Progress */}
         <div className="flex items-center justify-between px-4">
           <div className="flex flex-col items-center space-y-1">
-            <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs ${step >= 1 ? 'bg-primary text-white' : 'bg-slate-200 text-slate-400'}`}>1</div>
-            <span className="text-[10px] uppercase tracking-tighter font-bold text-slate-500">Adresse</span>
+            <div
+              className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs ${step >= 1 ? 'bg-primary text-white' : 'bg-slate-200 text-slate-400'}`}
+            >
+              1
+            </div>
+            <span className="text-[10px] uppercase tracking-tighter font-bold text-slate-500">
+              Adresse
+            </span>
           </div>
           <div className="flex-1 h-0.5 bg-slate-200 mx-2" />
           <div className="flex flex-col items-center space-y-1">
-            <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs ${step >= 2 ? 'bg-primary text-white' : 'bg-slate-200 text-slate-400'}`}>2</div>
-            <span className="text-[10px] uppercase tracking-tighter font-bold text-slate-500">Paiement</span>
+            <div
+              className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs ${step >= 2 ? 'bg-primary text-white' : 'bg-slate-200 text-slate-400'}`}
+            >
+              2
+            </div>
+            <span className="text-[10px] uppercase tracking-tighter font-bold text-slate-500">
+              Paiement
+            </span>
           </div>
         </div>
 
@@ -93,7 +101,9 @@ export default function Checkout() {
             </div>
             <div className="flex-1">
               <h4 className="font-bold text-slate-800">Maison</h4>
-              <p className="text-xs text-slate-500 font-normal">14 Avenue des Marronniers, Paris 75015</p>
+              <p className="text-xs text-slate-500 font-normal">
+                14 Avenue des Marronniers, Paris 75015
+              </p>
             </div>
             <button className="text-primary text-xs font-bold underline">Changer</button>
           </div>
@@ -110,7 +120,9 @@ export default function Checkout() {
               <h4 className="font-bold text-slate-800">Pharmacie du Centre</h4>
               <p className="text-xs text-slate-500 font-normal">À 1.2 km de vous</p>
             </div>
-            <div className="bg-green-100 text-green-600 px-2 py-1 rounded text-[10px] font-bold">OUVERT</div>
+            <div className="bg-green-100 text-green-600 px-2 py-1 rounded text-[10px] font-bold">
+              OUVERT
+            </div>
           </div>
         </section>
 
@@ -120,17 +132,30 @@ export default function Checkout() {
           <div className="space-y-3">
             {[
               { id: 'card', name: 'Carte Bancaire', icon: CreditCard, color: 'bg-blue-500' },
-              { id: 'apple', name: 'Apple Pay', icon: () => <img src="https://www.svgrepo.com/show/475638/apple-color.svg" className="w-5 h-5" alt="Apple" />, color: 'bg-black' },
-              { id: 'cash', name: 'Espèces à la livraison', icon: Truck, color: 'bg-green-500' }
-            ].map((p) => (
+              {
+                id: 'apple',
+                name: 'Apple Pay',
+                icon: () => (
+                  <img
+                    src="https://www.svgrepo.com/show/475638/apple-color.svg"
+                    className="w-5 h-5"
+                    alt="Apple"
+                  />
+                ),
+                color: 'bg-black',
+              },
+              { id: 'cash', name: 'Espèces à la livraison', icon: Truck, color: 'bg-green-500' },
+            ].map(p => (
               <button
                 key={p.id}
                 onClick={() => setSelectedPayment(p.id)}
                 className={`w-full p-4 rounded-2xl flex items-center justify-between border-2 transition-all ${selectedPayment === p.id ? 'border-primary bg-primary/5' : 'border-white bg-white shadow-sm'}`}
               >
                 <div className="flex items-center space-x-4">
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-white ${p.color}`}>
-                    {typeof p.icon === 'function' ? p.icon({}) : <p.icon size={20} />}
+                  <div
+                    className={`w-10 h-10 rounded-xl flex items-center justify-center text-white ${p.color}`}
+                  >
+                    {typeof p.icon === 'function' ? p.icon({ size: 20 }) : null}
                   </div>
                   <span className="font-bold text-slate-800">{p.name}</span>
                 </div>

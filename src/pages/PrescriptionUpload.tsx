@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { 
-  ChevronLeft, 
-  Upload, 
-  Camera, 
-  FileText, 
-  Sparkles, 
+import {
+  ChevronLeft,
+  Camera,
+  FileText,
+  Sparkles,
   ArrowRight,
   CheckCircle2,
-  AlertCircle
+  AlertCircle,
 } from 'lucide-react';
 import { analyzePrescription } from '../services/geminiService';
 
@@ -48,19 +47,24 @@ export default function PrescriptionUpload() {
   return (
     <div className="bg-slate-50 min-h-full p-6 pb-12">
       <div className="flex items-center mb-8">
-        <button onClick={() => navigate(-1)} className="p-3 rounded-2xl bg-white shadow-sm border border-slate-100">
+        <button
+          onClick={() => navigate(-1)}
+          className="p-3 rounded-2xl bg-white shadow-sm border border-slate-100"
+        >
           <ChevronLeft size={24} />
         </button>
-        <h1 className="flex-1 text-center text-xl font-display font-bold mr-10">Scanner Ordonnance</h1>
+        <h1 className="flex-1 text-center text-xl font-display font-bold mr-10">
+          Scanner Ordonnance
+        </h1>
       </div>
 
       <div className="space-y-6">
         {/* Upload Box */}
         {!image ? (
           <div className="relative group">
-            <input 
-              type="file" 
-              accept="image/*" 
+            <input
+              type="file"
+              accept="image/*"
               onChange={handleFileChange}
               className="absolute inset-0 opacity-0 cursor-pointer z-10"
             />
@@ -69,9 +73,13 @@ export default function PrescriptionUpload() {
                 <Camera size={40} />
               </div>
               <h3 className="text-xl font-bold text-slate-800">Prendre une photo</h3>
-              <p className="text-slate-400 text-sm font-normal">Scannez votre ordonnance papier pour commander vos médicaments en un clic.</p>
+              <p className="text-slate-400 text-sm font-normal">
+                Scannez votre ordonnance papier pour commander vos médicaments en un clic.
+              </p>
               <div className="pt-4">
-                <span className="text-primary font-bold decoration-2 underline underline-offset-4">Parcourir les fichiers</span>
+                <span className="text-primary font-bold decoration-2 underline underline-offset-4">
+                  Parcourir les fichiers
+                </span>
               </div>
             </div>
           </div>
@@ -79,8 +87,11 @@ export default function PrescriptionUpload() {
           <div className="space-y-6">
             <div className="relative h-64 w-full rounded-[2.5rem] overflow-hidden shadow-xl ring-4 ring-white">
               <img src={image} className="w-full h-full object-cover" alt="Ordonnance" />
-              <button 
-                onClick={() => { setImage(null); setAnalysisResult(null); }}
+              <button
+                onClick={() => {
+                  setImage(null);
+                  setAnalysisResult(null);
+                }}
                 className="absolute top-4 right-4 p-2 bg-black/50 text-white rounded-full backdrop-blur-md"
               >
                 <ChevronLeft className="rotate-90" size={20} />
@@ -121,22 +132,29 @@ export default function PrescriptionUpload() {
               <div className="absolute top-0 right-0 p-8 opacity-5">
                 <FileText size={120} className="text-primary" />
               </div>
-              
+
               <div className="flex items-center space-x-2 text-primary mb-6">
                 <Sparkles size={18} />
-                <span className="font-bold uppercase tracking-wider text-xs">Analyse de l'Assistant IA</span>
+                <span className="font-bold uppercase tracking-wider text-xs">
+                  Analyse de l'Assistant IA
+                </span>
               </div>
 
               <div className="prose prose-sm text-slate-600 leading-relaxed font-normal mb-8">
                 {analysisResult.split('\n').map((line, i) => (
-                  <p key={i} className="mb-2">{line}</p>
+                  <p key={i} className="mb-2">
+                    {line}
+                  </p>
                 ))}
               </div>
 
               <div className="space-y-4">
                 <div className="flex items-start space-x-3 text-slate-500 text-xs bg-slate-50 p-4 rounded-2xl">
                   <AlertCircle size={16} className="text-secondary shrink-0 mt-0.5" />
-                  <p>Cette analyse est fournie par une IA. Veuillez confirmer ces médicaments avec le panier final.</p>
+                  <p>
+                    Cette analyse est fournie par une IA. Veuillez confirmer ces médicaments avec le
+                    panier final.
+                  </p>
                 </div>
 
                 <motion.button

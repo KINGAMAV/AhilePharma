@@ -1,20 +1,18 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'motion/react';
-import { 
-  ChevronLeft, 
-  Search, 
-  Filter, 
-  ShoppingCart, 
-  Plus, 
-  Minus,
-  Star,
-  Info
-} from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+import { ChevronLeft, Search, Filter, ShoppingCart, Plus, Minus, Star } from 'lucide-react';
 import { MEDICINES } from '../constants';
 import { formatCurrency, cn } from '../lib/utils';
 
-const categories = ['Tous', 'Anti-douleur', 'Antibiotique', 'Respiratoire', 'Complément', 'Digestion'];
+const categories = [
+  'Tous',
+  'Anti-douleur',
+  'Antibiotique',
+  'Respiratoire',
+  'Complément',
+  'Digestion',
+];
 
 export default function PharmacyMarket() {
   const navigate = useNavigate();
@@ -22,9 +20,10 @@ export default function PharmacyMarket() {
   const [cart, setCart] = useState<Record<string, number>>({});
   const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredMedicines = MEDICINES.filter(m => 
-    (selectedCategory === 'Tous' || m.category === selectedCategory) &&
-    m.name.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredMedicines = MEDICINES.filter(
+    m =>
+      (selectedCategory === 'Tous' || m.category === selectedCategory) &&
+      m.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const cartCount = Object.values(cart).reduce((a, b) => a + b, 0);
@@ -50,11 +49,14 @@ export default function PharmacyMarket() {
       {/* Header */}
       <div className="bg-white p-6 pb-4 sticky top-0 z-20 shadow-sm border-b border-slate-50">
         <div className="flex items-center mb-6">
-          <button onClick={() => navigate('/home')} className="p-2 -ml-2 rounded-xl hover:bg-slate-100">
+          <button
+            onClick={() => navigate('/home')}
+            className="p-2 -ml-2 rounded-xl hover:bg-slate-100"
+          >
             <ChevronLeft size={24} />
           </button>
           <h1 className="flex-1 text-center text-xl font-display font-bold mr-10">Pharmacie</h1>
-          <motion.button 
+          <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={() => navigate('/checkout')}
             className="relative p-2"
@@ -71,11 +73,11 @@ export default function PharmacyMarket() {
         <div className="flex items-center space-x-3">
           <div className="flex-1 relative">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-            <input 
-              type="text" 
-              placeholder="Rechercher un médicament..." 
+            <input
+              type="text"
+              placeholder="Rechercher un médicament..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={e => setSearchQuery(e.target.value)}
               className="w-full h-12 pl-12 pr-4 bg-slate-50 rounded-xl border-none outline-none focus:ring-1 focus:ring-primary text-sm font-medium"
             />
           </div>
@@ -87,15 +89,15 @@ export default function PharmacyMarket() {
 
       {/* Categories */}
       <div className="px-6 py-4 flex space-x-3 overflow-x-auto scrollbar-hide">
-        {categories.map((cat) => (
+        {categories.map(cat => (
           <button
             key={cat}
             onClick={() => setSelectedCategory(cat)}
             className={cn(
-              "px-5 py-2.5 rounded-full text-sm font-bold whitespace-nowrap transition-all",
-              selectedCategory === cat 
-                ? "bg-primary text-white shadow-lg shadow-primary/20" 
-                : "bg-white text-slate-500 border border-slate-100"
+              'px-5 py-2.5 rounded-full text-sm font-bold whitespace-nowrap transition-all',
+              selectedCategory === cat
+                ? 'bg-primary text-white shadow-lg shadow-primary/20'
+                : 'bg-white text-slate-500 border border-slate-100'
             )}
           >
             {cat}
@@ -105,12 +107,8 @@ export default function PharmacyMarket() {
 
       {/* Grid */}
       <div className="px-6 grid grid-cols-2 gap-4">
-        {filteredMedicines.map((med) => (
-          <motion.div
-            layout
-            key={med.id}
-            className="card-minimal p-4 flex flex-col"
-          >
+        {filteredMedicines.map(med => (
+          <motion.div layout key={med.id} className="card-minimal p-4 flex flex-col">
             <div className="h-32 rounded-[1.5rem] overflow-hidden mb-3 bg-slate-50 relative">
               <img src={med.image} alt={med.name} className="w-full h-full object-cover" />
               <div className="absolute top-2 right-2 px-2 py-1 bg-white/90 backdrop-blur-md rounded-xl flex items-center space-x-1 shadow-sm">
@@ -126,7 +124,7 @@ export default function PharmacyMarket() {
                 <div className="flex items-center space-x-1">
                   {cart[med.id] ? (
                     <>
-                      <button 
+                      <button
                         onClick={() => updateCart(med.id, -1)}
                         className="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center text-slate-600"
                       >
@@ -135,7 +133,7 @@ export default function PharmacyMarket() {
                       <span className="w-4 text-center text-sm font-bold">{cart[med.id]}</span>
                     </>
                   ) : null}
-                  <button 
+                  <button
                     onClick={() => updateCart(med.id, 1)}
                     className="w-8 h-8 rounded-lg bg-primary text-white flex items-center justify-center shadow-md shadow-primary/20"
                   >
@@ -157,7 +155,7 @@ export default function PharmacyMarket() {
             exit={{ y: 100 }}
             className="fixed bottom-24 left-6 right-6 z-30"
           >
-            <button 
+            <button
               onClick={() => navigate('/checkout')}
               className="w-full h-16 bg-medical-dark rounded-2xl p-4 flex items-center justify-between text-white shadow-2xl shadow-black/20"
             >
@@ -166,7 +164,9 @@ export default function PharmacyMarket() {
                   <ShoppingCart size={20} />
                 </div>
                 <div className="text-left">
-                  <p className="text-[10px] font-bold opacity-60 uppercase tracking-widest">{cartCount} articles</p>
+                  <p className="text-[10px] font-bold opacity-60 uppercase tracking-widest">
+                    {cartCount} articles
+                  </p>
                   <p className="text-base font-bold">{formatCurrency(cartTotal)}</p>
                 </div>
               </div>

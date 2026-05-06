@@ -1,16 +1,15 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { 
-  ChevronLeft, 
-  Building2, 
-  MapPin, 
-  Star, 
-  Clock, 
+import {
+  ChevronLeft,
+  Building2,
+  MapPin,
+  Star,
+  Clock,
   Stethoscope,
   HeartPulse,
   Syringe,
-  Microscope
+  Microscope,
 } from 'lucide-react';
 import { CLINICS } from '../constants';
 
@@ -27,7 +26,10 @@ export default function ClinicBooking() {
   return (
     <div className="bg-slate-50 min-h-full pb-12 p-6">
       <div className="flex items-center mb-10">
-        <button onClick={() => navigate('/home')} className="p-3 rounded-2xl bg-white shadow-sm border border-slate-100">
+        <button
+          onClick={() => navigate('/home')}
+          className="p-3 rounded-2xl bg-white shadow-sm border border-slate-100"
+        >
           <ChevronLeft size={24} />
         </button>
         <h1 className="flex-1 text-center text-2xl font-display font-bold mr-10">Cliniques</h1>
@@ -61,7 +63,7 @@ export default function ClinicBooking() {
           </div>
 
           <div className="space-y-6">
-            {CLINICS.map((clinic) => (
+            {CLINICS.map(clinic => (
               <motion.div
                 key={clinic.id}
                 whileTap={{ scale: 0.98 }}
@@ -69,10 +71,16 @@ export default function ClinicBooking() {
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="w-24 h-24 rounded-[1.5rem] overflow-hidden shadow-md ring-4 ring-slate-50">
-                    <img src={clinic.photo} alt={clinic.name} className="w-full h-full object-cover" />
+                    <img
+                      src={clinic.photo}
+                      alt={clinic.name}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                   <div className="flex-1 ml-5">
-                    <h4 className="text-lg font-bold text-slate-900 leading-tight mb-1">{clinic.name}</h4>
+                    <h4 className="text-lg font-bold text-slate-900 leading-tight mb-1">
+                      {clinic.name}
+                    </h4>
                     <div className="flex items-center text-xs text-slate-500 font-bold tracking-tight mb-3">
                       <MapPin size={12} className="mr-1 text-primary" />
                       <span>{clinic.distance}</span>
@@ -82,7 +90,10 @@ export default function ClinicBooking() {
                     </div>
                     <div className="flex flex-wrap gap-1.5">
                       {clinic.services.map(s => (
-                        <span key={s} className="px-2.5 py-1 bg-slate-50 text-slate-400 rounded-lg text-[9px] font-bold uppercase tracking-wider">
+                        <span
+                          key={s}
+                          className="px-2.5 py-1 bg-slate-50 text-slate-400 rounded-lg text-[9px] font-bold uppercase tracking-wider"
+                        >
                           {s}
                         </span>
                       ))}

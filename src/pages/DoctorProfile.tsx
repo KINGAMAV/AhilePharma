@@ -1,19 +1,13 @@
-import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { 
-  ChevronLeft, 
-  Star, 
-  MapPin, 
-  Clock, 
-  Calendar, 
-  MessageCircle, 
+import {
+  ChevronLeft,
+  Star,
   Video,
   Award,
-  Users
+  Users,
 } from 'lucide-react';
 import { DOCTORS } from '../constants';
-import { cn } from '../lib/utils';
 
 export default function DoctorProfile() {
   const { id } = useParams();
@@ -30,7 +24,7 @@ export default function DoctorProfile() {
           <img src={doctor.photo} alt={doctor.name} className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-black/20" />
         </div>
-        <button 
+        <button
           onClick={() => navigate(-1)}
           className="absolute top-6 left-6 p-3 rounded-2xl bg-white/20 backdrop-blur-md text-white border border-white/30"
         >
@@ -82,7 +76,9 @@ export default function DoctorProfile() {
       <div className="px-6 mt-8">
         <h3 className="text-xl font-bold mb-3">À propos</h3>
         <p className="text-slate-500 leading-relaxed font-normal">
-          Le {doctor.name} est un expert reconnu en {doctor.speciality.toLowerCase()} avec plus de {doctor.experience} ans d'expérience clinique. Spécialisé dans les approches thérapeutiques modernes.
+          Le {doctor.name} est un expert reconnu en {doctor.speciality.toLowerCase()} avec plus de{' '}
+          {doctor.experience} ans d'expérience clinique. Spécialisé dans les approches
+          thérapeutiques modernes.
         </p>
       </div>
 
@@ -93,7 +89,7 @@ export default function DoctorProfile() {
           <button className="text-primary font-bold text-sm">Octobre</button>
         </div>
         <div className="flex space-x-3 overflow-x-auto px-6 scrollbar-hide">
-          {doctor.availability.map((time) => (
+          {doctor.availability.map(time => (
             <motion.button
               key={time}
               whileTap={{ scale: 0.95 }}
