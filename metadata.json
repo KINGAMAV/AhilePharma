@@ -1,0 +1,6 @@
+{
+  "name": "Super-App Médicale",
+  "description": "A premium healthcare super-app connecting patients, doctors, pharmacies, and clinics with AI-powered features.",
+  "requestFramePermissions": ["camera", "geolocation"],
+  "majorCapabilities": ["AI Consultation", "Pharmacy Marketplace", "Appointment Booking", "Delivery Tracking"]
+}
