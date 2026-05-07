@@ -19,6 +19,7 @@ import { cn } from './lib/utils';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { ToastProvider } from './contexts/ToastContext';
 import { ToastContainer } from './components/ToastContainer';
+import { useAuthInit } from './hooks/useAuthInit';
 
 // Pages
 import Onboarding from './pages/Onboarding';
@@ -104,32 +105,48 @@ const Navigation = () => {
   );
 };
 
+function AppContent(): ReactNode {
+  const isAuthReady = useAuthInit();
+
+  if (!isAuthReady) {
+    return (
+      <div className="mobile-container h-screen flex items-center justify-center bg-slate-50">
+        <p className="text-slate-600">Chargement de la session...</p>
+      </div>
+    );
+  }
+
+  return (
+    <Router>
+      <div className="mobile-container">
+        <main className="flex-1 overflow-y-auto scrollbar-hide">
+          <Routes>
+            <Route path="/" element={<Onboarding />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/home" element={<PatientHome />} />
+            <Route path="/doctor/:id" element={<DoctorProfile />} />
+            <Route path="/consultation" element={<Consultation />} />
+            <Route path="/marketplace" element={<PharmacyMarket />} />
+            <Route path="/prescription" element={<PrescriptionUpload />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/tracking" element={<Tracking />} />
+            <Route path="/clinics" element={<ClinicBooking />} />
+            <Route path="/dashboards/*" element={<Dashboards />} />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        </main>
+        <Navigation />
+        <ToastContainer />
+      </div>
+    </Router>
+  );
+}
+
 export default function App(): ReactNode {
   return (
     <ErrorBoundary>
       <ToastProvider>
-        <Router>
-          <div className="mobile-container">
-            <main className="flex-1 overflow-y-auto scrollbar-hide">
-              <Routes>
-                <Route path="/" element={<Onboarding />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/home" element={<PatientHome />} />
-                <Route path="/doctor/:id" element={<DoctorProfile />} />
-                <Route path="/consultation" element={<Consultation />} />
-                <Route path="/marketplace" element={<PharmacyMarket />} />
-                <Route path="/prescription" element={<PrescriptionUpload />} />
-                <Route path="/checkout" element={<Checkout />} />
-                <Route path="/tracking" element={<Tracking />} />
-                <Route path="/clinics" element={<ClinicBooking />} />
-                <Route path="/dashboards/*" element={<Dashboards />} />
-                <Route path="*" element={<Navigate to="/" />} />
-              </Routes>
-            </main>
-            <Navigation />
-            <ToastContainer />
-          </div>
-        </Router>
+        <AppContent />
       </ToastProvider>
     </ErrorBoundary>
   );

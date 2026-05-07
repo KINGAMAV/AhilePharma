@@ -80,6 +80,27 @@ export async function logoutRequest(token: string): Promise<void> {
   });
 }
 
+export async function getCurrentUser(token: string): Promise<{ user: User }> {
+  if (!API_BASE) {
+    return Promise.resolve({
+      user: {
+        id: 'mock-user-id',
+        name: 'Patient Test',
+        email: 'patient@test.com',
+        role: 'Patient',
+        avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80',
+      },
+    });
+  }
+
+  return request<{ user: User }>(`${API_BASE}/auth/me`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
 function mockAuth(payload: LoginPayload): Promise<AuthResponse> {
   return new Promise(resolve => {
     setTimeout(() => {

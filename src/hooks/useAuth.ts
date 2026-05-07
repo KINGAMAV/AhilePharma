@@ -48,7 +48,7 @@ export function useAuth(): AuthHookReturn {
     setError(null);
 
     try {
-      const response = await registerRequest({ email, password, role });
+      const response = await registerRequest({ email, password, role, name });
       setLogin(response.user, response.token);
       toast.addToast('Inscription réussie', 'success');
       navigate('/home');

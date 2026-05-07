@@ -1,0 +1,10 @@
+interface ImportMetaEnv {
+  readonly VITE_API_URL: string;
+  readonly NODE_ENV?: string;
+  readonly APP_URL?: string;
+  readonly GEMINI_API_KEY?: string;
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}
