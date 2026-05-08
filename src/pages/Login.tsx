@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { UserRole } from '../types';
 import { useAuth } from '../hooks/useAuth';
+import { initiateGoogleAuth } from '../services/googleAuthService';
 
 const roles: { role: UserRole; label: string; icon: any }[] = [
   { role: 'Patient', label: 'Patient', icon: User },
@@ -147,7 +148,7 @@ export default function Login() {
           Ou continuer avec
         </span>
         <div className="flex space-x-6">
-          <button className="p-4 rounded-2xl bg-slate-50 border border-slate-100 hover:border-slate-200 transition-all">
+          <button onClick={initiateGoogleAuth} className="p-4 rounded-2xl bg-slate-50 border border-slate-100 hover:border-slate-200 transition-all">
             <img
               src="https://www.svgrepo.com/show/475656/google-color.svg"
               className="w-6 h-6"

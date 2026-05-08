@@ -13,7 +13,7 @@ import {
   Truck,
   ShoppingCart,
   Building2,
-  LayoutDashboard,
+  Settings,
 } from 'lucide-react';
 import { cn } from './lib/utils';
 import { ErrorBoundary } from './components/ErrorBoundary';
@@ -33,6 +33,8 @@ import Checkout from './pages/Checkout';
 import Tracking from './pages/Tracking';
 import ClinicBooking from './pages/ClinicBooking';
 import Dashboards from './pages/Dashboards';
+import AdminDashboard from './pages/AdminDashboard';
+import { ProtectedRoute } from './components/ProtectedRoute';
 
 const NavItem = ({
   to,
@@ -96,10 +98,10 @@ const Navigation = () => {
         active={location.pathname === '/tracking'}
       />
       <NavItem
-        to="/dashboards"
-        icon={LayoutDashboard}
+        to="/admin"
+        icon={Settings}
         label="Admin"
-        active={location.pathname.startsWith('/dashboards')}
+        active={location.pathname === '/admin'}
       />
     </nav>
   );
@@ -132,6 +134,14 @@ function AppContent(): ReactNode {
             <Route path="/tracking" element={<Tracking />} />
             <Route path="/clinics" element={<ClinicBooking />} />
             <Route path="/dashboards/*" element={<Dashboards />} />
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute requiredRoles={['Doctor', 'Pharmacy', 'Clinic', 'Delivery']}>
+                  <AdminDashboard />
+                </ProtectedRoute>
+              }
+            />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </main>
